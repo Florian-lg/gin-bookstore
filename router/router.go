@@ -1,9 +1,8 @@
 package router
 
-import(
-	"github.com/gin-gonic/gin"
-
+import (
 	"endpoint"
+	"github.com/gin-gonic/gin"
 )
 
 func Routes() {
@@ -12,8 +11,11 @@ func Routes() {
 	api := r.Group("/api")
 	{
 		api.GET("/books", endpoint.GetAllBooks)
-		api.GET("/books/:id", endpoint.GetBook)
 	}
 
-	r.Run()
+	err := r.Run()
+
+	if err != nil {
+		panic("Endpoint not found")
+	}
 }

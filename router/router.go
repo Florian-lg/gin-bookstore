@@ -10,7 +10,8 @@ func Routes() {
 
 	api := r.Group("/api")
 	{
-		api.GET("/books", endpoint.GetAllBooks)
+		books := new(endpoint.Book)
+		api.GET("/books", books.Index)
 	}
 
 	err := r.Run()

@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	db.Setup()
+	db.Migrate()
 	router.Routes()
 }

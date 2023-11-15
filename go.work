@@ -3,7 +3,9 @@ go 1.21.3
 use (
 	.
 	./api/endpoints
-	./database
+	./db
 	./models
 	./router
+	./repositories
+	./core
 )

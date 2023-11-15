@@ -5,11 +5,11 @@ import (
 	"gorm.io/gorm"
 )
 
-func Setup() *gorm.DB {
+func Db() *gorm.DB {
 	db, err := gorm.Open(sqlite.Open("bookstore.db"), &gorm.Config{})
 
 	if err != nil {
-		panic("Failed to connect to database")
+		panic("Failed to connect to db")
 	}
 
 	return db

@@ -11,7 +11,7 @@ type Books struct {
 }
 
 func (r *Books) FindAll() (*gorm.DB, []models.Book) {
-	var list []models.Book
-	result := r.Db().Find(&list)
-	return result, list
+	var books []models.Book
+	result := r.Db().Find(&books)
+	return result, books
 }

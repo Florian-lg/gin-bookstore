@@ -12,14 +12,8 @@ type Book struct {
 }
 
 func (e *Book) Index(ctx *gin.Context) {
-	result, list := new(repositories.Books).FindAll()
+	_, books := new(repositories.Books).FindAll()
 
-	if result != nil {
-		ctx.IndentedJSON(http.StatusNotFound, gin.H{
-			"message": "Not found",
-		})
-	}
-
-	ctx.IndentedJSON(http.StatusOK, list)
+	ctx.IndentedJSON(http.StatusOK, books)
 
 }

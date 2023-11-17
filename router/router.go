@@ -12,6 +12,7 @@ func Routes() {
 	{
 		books := new(endpoint.Book)
 		api.GET("/books", books.Index)
+		api.POST("/books", books.Create)
 	}
 
 	err := r.Run()

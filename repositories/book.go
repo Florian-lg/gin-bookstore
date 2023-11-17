@@ -16,7 +16,8 @@ func (r *Books) FindAll() (*gorm.DB, []models.Book) {
 	return result, books
 }
 
-func (r *Books) Find() (*gorm.DB, models.Book) {
+func (r *Books) Find(id string) (*gorm.DB, models.Book) {
 	var book models.Book
-	result := r.Db().First()
+	result := r.Db().First(&book, id)
+	return result, book
 }

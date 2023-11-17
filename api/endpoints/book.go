@@ -4,7 +4,7 @@ import (
 	"core"
 	"db"
 	"github.com/gin-gonic/gin"
-	"models"
+	"inputs"
 	"net/http"
 	"repositories"
 )
@@ -19,12 +19,19 @@ func (e *Book) Index(ctx *gin.Context) {
 }
 
 func (e *Book) Show(ctx *gin.Context) {
-	book := new(repositories.Books).Find()
+	id := ctx.Query("id")
+	_, book := new(repositories.Books).Find(id)
 	ctx.IndentedJSON(http.StatusOK, book)
 }
 
 func (e *Book) Create(ctx *gin.Context) {
-	book := models.Book{Title: "Test", Price: 10, Author: "toto"}
+	var book inputs.Book
+	err := ctx.ShouldBind(&book)
+
+	if err != nil {
+		ctx.String(http.StatusBadRequest, "bad request : %v", err)
+	}
+
 	db.Db().Create(&book)
 	ctx.IndentedJSON(http.StatusCreated, book)
 }

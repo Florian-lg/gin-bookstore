@@ -3,6 +3,7 @@ go 1.21.3
 use (
 	.
 	./api/endpoints
+	./api/inputs
 	./db
 	./models
 	./router

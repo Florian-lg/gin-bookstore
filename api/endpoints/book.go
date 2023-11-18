@@ -2,7 +2,6 @@ package endpoint
 
 import (
 	"core"
-	"db"
 	"github.com/gin-gonic/gin"
 	"inputs"
 	"net/http"
@@ -13,13 +12,13 @@ type Book struct {
 	core.Endpoint
 }
 
-func (e *Book) Index(ctx *gin.Context) {
+func (b *Book) Index(ctx *gin.Context) {
 	_, books := new(repositories.Books).FindAll()
 	ctx.IndentedJSON(http.StatusOK, books)
 }
 
 func (e *Book) Show(ctx *gin.Context) {
-	id := ctx.Query("id")
+	id := ctx.Param("id")
 	_, book := new(repositories.Books).Find(id)
 	ctx.IndentedJSON(http.StatusOK, book)
 }
@@ -30,8 +29,14 @@ func (e *Book) Create(ctx *gin.Context) {
 
 	if err != nil {
 		ctx.String(http.StatusBadRequest, "bad request : %v", err)
+		return
 	}
 
-	db.Db().Create(&book)
+	new(repositories.Books).Create(&book)
 	ctx.IndentedJSON(http.StatusCreated, book)
+}
+
+func (b *Book) Destroy(ctx *gin.Context) {
+	id := ctx.Param("id")
+	new(repositories.Books).Destroy(id)
 }

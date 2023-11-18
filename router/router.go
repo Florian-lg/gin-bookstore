@@ -14,11 +14,12 @@ func Routes() {
 		api.GET("/books", books.Index)
 		api.GET("/books/:id", books.Show)
 		api.POST("/books", books.Create)
+		api.DELETE("/books/:id", books.Destroy)
 	}
 
 	err := r.Run()
 
 	if err != nil {
-		panic("Endpoint not found")
+		panic("Router error")
 	}
 }

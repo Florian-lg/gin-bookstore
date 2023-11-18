@@ -4,6 +4,7 @@ use (
 	.
 	./api/endpoints
 	./api/inputs
+	./api/transformers
 	./db
 	./models
 	./router

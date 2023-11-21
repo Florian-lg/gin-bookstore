@@ -13,13 +13,13 @@ type Book struct {
 }
 
 func (b *Book) Index(ctx *gin.Context) {
-	_, books := new(repositories.Books).FindAll()
+	_, books := new(repositories.Book).FindAll()
 	ctx.IndentedJSON(http.StatusOK, books)
 }
 
 func (e *Book) Show(ctx *gin.Context) {
 	id := ctx.Param("id")
-	_, book := new(repositories.Books).Find(id)
+	_, book := new(repositories.Book).Find(id)
 	ctx.IndentedJSON(http.StatusOK, book)
 }
 
@@ -32,11 +32,25 @@ func (e *Book) Create(ctx *gin.Context) {
 		return
 	}
 
-	new(repositories.Books).Create(&book)
+	new(repositories.Book).Create(&book)
 	ctx.IndentedJSON(http.StatusCreated, book)
+}
+
+func (e *Book) Update(ctx *gin.Context) {
+	id := ctx.Param("id")
+	_, book := new(repositories.Book).Find(id)
+	var input inputs.Book
+	err := ctx.ShouldBind(&input)
+
+	if err != nil {
+		ctx.String(http.StatusBadRequest, "bad request : %v", err)
+		return
+	}
+
+	new(repositories.Book).Update(&input, &book)
 }
 
 func (b *Book) Destroy(ctx *gin.Context) {
 	id := ctx.Param("id")
-	new(repositories.Books).Destroy(id)
+	new(repositories.Book).Destroy(id)
 }

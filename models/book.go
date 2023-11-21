@@ -6,6 +6,6 @@ type Book struct {
 	Id     uuid.UUID `gorm:"column:id;not null;primaryKey" json:"id"`
 	Title  string    `json:"title"`
 	Price  float64   `json:"price"`
-	Author string    `json:"author"`
+	Author Author    `gorm:"foreignKey:BookRefer"`
 	Timestamp
 }

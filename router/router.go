@@ -15,6 +15,7 @@ func Routes() {
 		api.GET("/books/:id", books.Show)
 		api.POST("/books", books.Create)
 		api.DELETE("/books/:id", books.Destroy)
+		api.PUT("/books/:id", books.Update)
 	}
 
 	err := r.Run()

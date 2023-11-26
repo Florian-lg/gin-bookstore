@@ -1,6 +1,7 @@
 package transformers
 
 import (
+	"core"
 	"github.com/google/uuid"
 	"inputs"
 	"models"
@@ -8,7 +9,11 @@ import (
 	"time"
 )
 
-func Transform(input *inputs.Book, model *models.Book) models.Book {
+type Book struct {
+	core.Transformer
+}
+
+func (t *Book) Transform(input *inputs.Book, model *models.Book) models.Book {
 	_, author := new(repositories.Author).Find(input.Author)
 
 	if model != nil {

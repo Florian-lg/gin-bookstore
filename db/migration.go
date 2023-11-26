@@ -7,8 +7,12 @@ import (
 
 func Migrate() {
 	log.Printf("Starts migration")
-	Db().AutoMigrate(
+	err := Db().AutoMigrate(
 		&models.Book{},
 		&models.Author{},
 	)
+
+	if err != nil {
+		panic("Migration cannot be generated.")
+	}
 }

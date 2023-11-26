@@ -6,6 +6,7 @@ import (
 	"inputs"
 	"net/http"
 	"repositories"
+	"transformers"
 )
 
 type Book struct {
@@ -24,14 +25,15 @@ func (e *Book) Show(ctx *gin.Context) {
 }
 
 func (e *Book) Create(ctx *gin.Context) {
-	var book inputs.Book
-	err := ctx.ShouldBind(&book)
+	var input inputs.Book
+	err := ctx.ShouldBind(&input)
 
 	if err != nil {
 		ctx.String(http.StatusBadRequest, "bad request : %v", err)
 		return
 	}
 
+	book := new(transformers.Book).Transform(&input, nil)
 	new(repositories.Book).Create(&book)
 	ctx.IndentedJSON(http.StatusCreated, book)
 }
@@ -47,6 +49,7 @@ func (e *Book) Update(ctx *gin.Context) {
 		return
 	}
 
+	book = new(transformers.Book).Transform(&input, nil)
 	new(repositories.Book).Update(&input, &book)
 }
 

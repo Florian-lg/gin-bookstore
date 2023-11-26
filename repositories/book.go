@@ -5,21 +5,18 @@ import (
 	"gorm.io/gorm"
 	"inputs"
 	"models"
-	"transformers"
 )
 
 type Book struct {
 	core.Repository
 }
 
-func (r *Book) Create(input *inputs.Book) {
-	book := transformers.Transform(input, nil)
+func (r *Book) Create(book *models.Book) {
 	r.Db().Save(&book)
 }
 
 func (r *Book) Update(input *inputs.Book, model *models.Book) {
-	book := transformers.Transform(input, model)
-	r.Db().Save(&book)
+	r.Db().Save(&model)
 }
 
 func (r *Book) FindAll() (*gorm.DB, []models.Book) {

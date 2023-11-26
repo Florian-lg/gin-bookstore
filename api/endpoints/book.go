@@ -40,7 +40,7 @@ func (e *Book) Create(ctx *gin.Context) {
 
 func (e *Book) Update(ctx *gin.Context) {
 	id := ctx.Param("id")
-	_, book := new(repositories.Book).Find(id)
+	_, model := new(repositories.Book).Find(id)
 	var input inputs.Book
 	err := ctx.ShouldBind(&input)
 
@@ -49,8 +49,9 @@ func (e *Book) Update(ctx *gin.Context) {
 		return
 	}
 
-	book = new(transformers.Book).Transform(&input, nil)
+	book := new(transformers.Book).Transform(&input, &model)
 	new(repositories.Book).Update(&input, &book)
+	ctx.IndentedJSON(http.StatusCreated, book)
 }
 
 func (b *Book) Destroy(ctx *gin.Context) {

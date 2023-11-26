@@ -7,6 +7,7 @@ import (
 
 func Migrate() {
 	log.Printf("Starts migration")
+
 	err := Db().AutoMigrate(
 		&models.Book{},
 		&models.Author{},

@@ -3,8 +3,6 @@ package router
 import (
 	"endpoint"
 	"github.com/gin-gonic/gin"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func Routes() {
@@ -23,10 +21,6 @@ func Routes() {
 		api.GET("/authors/:id", authors.Show)
 		api.POST("/authors", authors.Create)
 	}
-
-	ginSwagger.WrapHandler(swaggerFiles.Handler,
-		ginSwagger.URL("http://localhost:8080/swagger/doc.json"),
-		ginSwagger.DefaultModelsExpandDepth(-1))
 
 	err := r.Run()
 

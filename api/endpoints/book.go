@@ -13,7 +13,7 @@ type Book struct {
 	core.Endpoint
 }
 
-func (b *Book) Index(ctx *gin.Context) {
+func (e *Book) Index(ctx *gin.Context) {
 	_, books := new(repositories.Book).FindAll()
 	ctx.IndentedJSON(http.StatusOK, books)
 }
@@ -54,7 +54,7 @@ func (e *Book) Update(ctx *gin.Context) {
 	ctx.IndentedJSON(http.StatusCreated, book)
 }
 
-func (b *Book) Destroy(ctx *gin.Context) {
+func (e *Book) Destroy(ctx *gin.Context) {
 	id := ctx.Param("id")
 	new(repositories.Book).Destroy(id)
 }

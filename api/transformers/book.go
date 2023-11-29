@@ -18,10 +18,10 @@ func (t *Book) Transform(input *inputs.Book, model *models.Book) models.Book {
 
 	if model != nil {
 		return models.Book{
-			Id:     model.Id,
-			Title:  input.Title,
-			Price:  input.Price,
-			Author: author,
+			Id:       model.Id,
+			Title:    input.Title,
+			Price:    input.Price,
+			AuthorID: author.Id,
 			Timestamp: models.Timestamp{
 				CreatedAt: model.Timestamp.CreatedAt,
 				UpdatedAt: time.Now(),
@@ -30,10 +30,10 @@ func (t *Book) Transform(input *inputs.Book, model *models.Book) models.Book {
 	}
 
 	return models.Book{
-		Id:     uuid.New(),
-		Title:  input.Title,
-		Price:  input.Price,
-		Author: author,
+		Id:       uuid.New(),
+		Title:    input.Title,
+		Price:    input.Price,
+		AuthorID: author.Id,
 		Timestamp: models.Timestamp{
 			CreatedAt: time.Now(),
 			UpdatedAt: time.Now(),

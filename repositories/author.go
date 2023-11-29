@@ -16,6 +16,6 @@ func (r *Author) Create(author *models.Author) {
 
 func (r *Author) Find(id string) (*gorm.DB, models.Author) {
 	var author models.Author
-	result := r.Db().First(&author, "id = ?", id)
+	result := r.Db().Preload("Books").First(&author, "id = ?", id)
 	return result, author
 }

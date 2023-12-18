@@ -20,6 +20,9 @@ func Routes() {
 		authors := new(endpoint.Author)
 		api.GET("/authors/:id", authors.Show)
 		api.POST("/authors", authors.Create)
+
+		security := new(endpoint.Security)
+		api.POST("/api/register", security.Register)
 	}
 
 	err := r.Run()

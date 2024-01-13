@@ -2,11 +2,12 @@ package endpoint
 
 import (
 	"core"
-	"github.com/gin-gonic/gin"
 	"inputs"
 	"net/http"
 	"repositories"
 	"transformers"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Book struct {
@@ -28,7 +29,13 @@ func (e *Book) Index(ctx *gin.Context) {
 // @Router /api/books/:id [get]
 func (e *Book) Show(ctx *gin.Context) {
 	id := ctx.Param("id")
-	_, book := new(repositories.Book).Find(id)
+	result, book := new(repositories.Book).Find(id)
+
+	if result == nil {
+		ctx.IndentedJSON(http.StatusNotFound, "The requested book was not found.")
+	}
+	
+
 	ctx.IndentedJSON(http.StatusOK, book)
 }
 

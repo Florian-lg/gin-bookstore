@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"repositories"
 	"transformers"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -83,7 +82,7 @@ func (e *Book) Update(ctx *gin.Context) {
 // @Success 204
 // @Accept json
 // @Produce json
-// @Router /api/books [patch]
+// @Router /api/books [delete]
 func (e *Book) Destroy(ctx *gin.Context) {
 	id := ctx.Param("id")
 	new(repositories.Book).Destroy(id)
